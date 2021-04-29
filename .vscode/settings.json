@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "#! \\usr\\bin\\env python3",
+    "python.pythonPath": "\\usr\\bin\\env python3",
     "python.linting.pylintEnabled": true,
     "python.linting.pycodestyleEnabled": false,
     "python.linting.pydocstyleEnabled": false,
