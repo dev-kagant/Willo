@@ -43,17 +43,17 @@ def contractions_per_sec(pressure_data, totalContractions):
 
 def main():
     pressure_file = sys.argv[1]
-    with open(sys.argv[1]) as pressure_file:   #opening and reading csv files
+    results = {}
+    with open(sys.argv[1]) as pressure_file:
         csv_reader = csv.reader(pressure_file, delimiter=",")
         data = [row for row in csv_reader]
-        n = count_contractions(data) # 0 FIXME
-        f = contractions_per_sec(data, n) # 0 FIXME
-        print("---")
-        print("For {}:".format(pressure_file.name))
-        print("* Number of contraction = {}".format(n))
-        print("* Contraction / s = {}".format(f))
-
-    return 0
+        results = {
+        "pressure_data":[{"ms": d[0], "pressure": d[1]} for d in data if d[0] != "ms"],
+        "count_contractions": count_contractions(data),
+        "contraction_per_sec": contractions_per_sec(data, count_contractions(data)),
+        }
+    with open(f'pressure_{pressure_file.name[9]}.json', 'w') as outfile:
+        json.dump(results, outfile)
 
 if __name__ == '__main__':
     sys.exit(main())
