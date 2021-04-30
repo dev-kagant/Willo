@@ -10,23 +10,22 @@ def count_contractions(pressure_data):
     :param pressure_data: a list of pressure points
     :return: The total number of contractions
     """
-    # FIXME
     pressure_monitor = 95
     contraction_counter = 0
     for row in pressure_data:
         if row[1] == 'pressure': continue
-        if float(row[1]) > float(pressure_monitor):
+        if float(row[1]) < pressure_monitor:
             if pressure_monitor == 85:
                 pressure_monitor = 95
-                contraction_counter += 1
             continue
-        if float(row[1]) < pressure_monitor:
+        elif float(row[1]) > pressure_monitor:
             if pressure_monitor == 95:
                 pressure_monitor = 85
+                contraction_counter += 1
             continue
         else: continue
 
-    return contraction_counter
+    return contraction_counter-1
 
 
 def contractions_per_sec(pressure_data, totalContractions):
@@ -35,7 +34,6 @@ def contractions_per_sec(pressure_data, totalContractions):
     :param pressure_data: a list of pressure points
     :return: The mean frequency of contraction / secs
     """
-    # FIXME
     total_seconds = pressure_data[len(pressure_data)-1]
     return round(totalContractions/int(int(total_seconds[0])/1000), 2)
 
